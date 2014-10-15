@@ -1,6 +1,6 @@
 A simple fuzzing test golang util.
 
-The input is any interface {} object. Using reflection, the the values
+The input is any interface {} object. Using reflection, the values
 of the interface are replaced by random values of proper type. In case 
 we are dealing with a map, the keys remain the same, but the values change.
 

@@ -1,6 +1,7 @@
 package dontpanic
 
 import (
+	"encoding/json"
 	"math/rand"
 	"testing"
 	"time"
@@ -12,6 +13,12 @@ type testSample struct {
 	Name  string
 	Bork  map[string]int32
 	Names []string
+}
+
+type jsonStrunct struct {
+	Person  map[string]string
+	Age     int
+	Hobbies []string
 }
 
 func init() {
@@ -34,6 +41,23 @@ func TestFuzz(t *testing.T) {
 	t.Logf("Init sample: ", ts)
 
 	fuzzed, err := Fuzz(&ts)
+	if err != nil {
+		t.Error(err)
+	}
+
+	t.Logf("Fuzzed one: ", fuzzed)
+}
+
+func TestJson(t *testing.T) {
+	var data jsonStrunct
+	jsonData := `{"Person":{"name":"John", "surname":"Doe"}, "Age":42, "Hobbies":["hacking", "running", "painting"]}`
+	err := json.Unmarshal([]byte(jsonData), &data)
+	if err != nil {
+		t.Error(err)
+	}
+	t.Logf("Init sample: ", data)
+
+	fuzzed, err := Fuzz(&data)
 	if err != nil {
 		t.Error(err)
 	}
