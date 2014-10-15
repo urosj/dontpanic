@@ -1,7 +1,6 @@
 package dontpanic
 
 import (
-	"fmt"
 	"math/rand"
 	"testing"
 	"time"
@@ -32,12 +31,12 @@ func TestFuzz(t *testing.T) {
 		},
 	}
 
-	fmt.Println("Init sample: ", ts)
+	t.Logf("Init sample: ", ts)
 
 	fuzzed, err := Fuzz(&ts)
 	if err != nil {
 		t.Error(err)
 	}
 
-	fmt.Println("Fuzzed one: ", fuzzed)
+	t.Logf("Fuzzed one: ", fuzzed)
 }
